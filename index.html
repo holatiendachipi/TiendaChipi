@@ -9,10 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
   <style>
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
 
     body {
       position: relative;
@@ -24,8 +21,9 @@
       color: #222;
       background: url("https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1600&q=80") no-repeat center center fixed;
       background-size: cover;
-      overflow-x: hidden;
+      overflow: hidden;
       padding: 2rem;
+      transition: background-color 0.5s, color 0.5s;
     }
 
     body::before {
@@ -54,10 +52,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .logo {
-      width: 120px; height: 120px;
-      margin: 0 auto 1.5rem;
-    }
+    .logo { width: 120px; height: 120px; margin: 0 auto 1.5rem; }
 
     h1 { font-size: 3rem; color: #111; margin-bottom: 1rem; letter-spacing: 2px; }
     p { font-size: 1.1rem; color: #444; line-height: 1.6; margin-bottom: 2rem; }
@@ -83,6 +78,7 @@
       transition: transform 0.2s ease, background 0.3s ease;
     }
 
+    .btn i { font-size: 1.2rem; }
     .btn:hover { transform: scale(1.05); }
 
     .whatsapp-btn { background-color: #25d366; }
@@ -110,32 +106,29 @@
     /* CARRUSEL DE ÍCONOS */
     .carousel {
       margin-top: 2rem;
+      overflow: hidden;
       width: 100%;
-      overflow-x: auto;
-      overflow-y: hidden;
-      scroll-snap-type: x mandatory;
-      display: flex;
-      gap: 1.5rem;
-      padding: 1rem 0;
       border-radius: 15px;
-      -webkit-overflow-scrolling: touch;
+      position: relative;
     }
 
-    .carousel::-webkit-scrollbar {
-      display: none;
+    .carousel-track {
+      display: flex;
+      gap: 2rem;
+      animation: scroll 25s linear infinite;
+      justify-content: center;
+      align-items: center;
     }
 
     .carousel-item {
-      scroll-snap-align: center;
-      flex: 0 0 auto;
+      flex-shrink: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       color: #333;
       font-size: 2.5rem;
+      animation: bounce 2.5s infinite ease-in-out;
       transition: transform 0.3s ease, color 0.3s ease;
-      width: 90px;
     }
 
     .carousel-item img {
@@ -146,6 +139,7 @@
       transition: transform 0.3s ease, filter 0.3s ease;
     }
 
+    /* Ícono de almohadón reducido 10% */
     .carousel-item img.almohadon {
       width: 54px;
       height: 54px;
@@ -156,19 +150,30 @@
       filter: brightness(0.2);
     }
 
+    .carousel-item:nth-child(1) { animation-delay: 0s; }
+    .carousel-item:nth-child(2) { animation-delay: 0.5s; }
+    .carousel-item:nth-child(3) { animation-delay: 1s; }
+    .carousel-item:nth-child(4) { animation-delay: 1.5s; }
+    .carousel-item:nth-child(5) { animation-delay: 2s; }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
     .carousel-item span {
       font-size: 0.9rem;
       margin-top: 0.4rem;
       color: #555;
     }
 
-    footer {
-      margin-top: 3rem;
-      font-size: 0.9rem;
-      color: #777;
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
 
-    /* MODO OSCURO */
+    footer { margin-top: 3rem; font-size: 0.9rem; color: #777; }
+
     @media (prefers-color-scheme: dark) {
       body { color: #eee; background-color: #111; }
       .container { background: rgba(30,30,30,0.85); }
@@ -177,16 +182,15 @@
       .social a { color: #ccc; }
       .social a:hover { color: #fff; }
       footer { color: #aaa; }
+      .carousel-item { color: #ccc; }
+      .carousel-item:hover { color: #fff; }
       .carousel-item img { filter: brightness(1) invert(1); }
     }
 
-    /* RESPONSIVE */
     @media (max-width: 600px) {
       h1 { font-size: 2.2rem; }
       p { font-size: 1rem; }
       .container { padding: 2rem; }
-      .carousel-item img { width: 50px; height: 50px; }
-      .carousel-item img.almohadon { width: 46px; height: 46px; }
     }
   </style>
 </head>
@@ -219,12 +223,14 @@
 
     <!-- Carrusel de íconos -->
     <div class="carousel">
-      <div class="carousel-item"><img src="gorra.png" alt="Gorra"><span>Gorras</span></div>
-      <div class="carousel-item"><i class="fa-solid fa-mug-hot"></i><span>Tazas</span></div>
-      <div class="carousel-item"><i class="fa-solid fa-computer-mouse"></i><span>Mousepads</span></div>
-      <div class="carousel-item"><i class="fa-solid fa-note-sticky"></i><span>Vinilos</span></div>
-      <div class="carousel-item"><img src="almohadones.png" alt="Almohadón" class="almohadon"><span>Almohadones</span></div>
-      <div class="carousel-item"><img src="gorra.png" alt="Gorra"><span>Gorras</span></div>
+      <div class="carousel-track">
+        <div class="carousel-item"><img src="gorra.png" alt="Gorra"><span>Gorras</span></div>
+        <div class="carousel-item"><i class="fa-solid fa-mug-hot"></i><span>Tazas</span></div>
+        <div class="carousel-item"><i class="fa-solid fa-computer-mouse"></i><span>Mousepads</span></div>
+        <div class="carousel-item"><i class="fa-solid fa-note-sticky"></i><span>Vinilos</span></div>
+        <div class="carousel-item"><img src="almohadones.png" alt="Almohadón" class="almohadon"><span>Almohadones</span></div>
+        <div class="carousel-item"><img src="gorra.png" alt="Gorra"><span>Gorras</span></div>
+      </div>
     </div>
 
     <footer>© 2025 Tienda Chipi · Todos los derechos reservados</footer>
@@ -232,5 +238,6 @@
 
 </body>
 </html>
+
 
 
