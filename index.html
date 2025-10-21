@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tienda Chipi | Landing Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif;}
+
+    body{
+      position:relative;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      color:#222;
+      background:url("https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1600&q=80") no-repeat center center fixed;
+      background-size:cover;
+      overflow:hidden;
+      padding:2rem;
+    }
+
+    body::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:rgba(255,255,255,0.7);
+      backdrop-filter:blur(8px);
+      z-index:0;
+    }
+
+    .container{
+      position:relative;
+      z-index:1;
+      background:rgba(255,255,255,0.9);
+      border-radius:20px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.15);
+      padding:3rem;
+      max-width:700px;
+      width:100%;
+      animation:fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn{
+      from{opacity:0;transform:translateY(20px);}
+      to{opacity:1;transform:translateY(0);}
+    }
+
+    .logo{width:120px;height:120px;margin:0 auto 1rem;}
+
+    /* === CARTEL LED === */
+    .led-typewriter-container{
+      margin:2rem auto;
+      display:flex;
+      justify-content:center;
+      width:100%;
+    }
+
+    .led-frame{
+      background:radial-gradient(circle at center,#000 0%,#0a0a0a 100%);
+      border:3px solid #ff7a00;
+      border-radius:12px;
+      box-shadow:0 0 30px #ff7a00,0 0 60px #ff7a00 inset;
+      padding:25px;
+      max-width:700px;
+      width:95%;
+      overflow:hidden;
+      animation:pulseGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow{
+      0%,100%{box-shadow:0 0 25px #ff7a00,0 0 55px #ff7a00 inset;filter:brightness(0.95);}
+      50%{box-shadow:0 0 40px #ffae00,0 0 75px #ffae00 inset;filter:brightness(1.1);}
+    }
+
+    .text-type{
+      font-family:"Courier New",Courier,monospace;
+      font-size:1.5rem;
+      font-weight:bold;
+      color:#ff7a00;
+      display:inline-block;
+      text-shadow:
+        0 0 5px #ff7a00,
+        0 0 10px #ff7a00,
+        0 0 20px #ff7a00;
+      opacity:0;
+      transition:opacity 0.8s ease-in-out;
+    }
+
+    .text-type.visible{opacity:1;}
+
+    .cursor{
+      display:inline-block;
+      width:6px;
+      height:1.4rem;
+      background:#ff7a00;
+      margin-left:4px;
+      animation:blink 0.8s infinite;
+    }
+
+    @keyframes blink{50%{opacity:0;}}
+
+    /* === BOTONES Y DEMÁS === */
+    .btn-group{display:flex;flex-direction:column;align-items:center;gap:1rem;margin-top:2rem;}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:0.5rem;
+      padding:0.9rem 1.8rem;
+      border-radius:50px;
+      font-weight:600;
+      text-decoration:none;
+      color:white;
+      transition:transform 0.2s ease,background 0.3s ease;
+    }
+
+    .btn:hover{transform:scale(1.05);}
+    .whatsapp-btn{background-color:#25d366;}
+    .whatsapp-btn:hover{background-color:#1eb45c;}
+    .youtube-btn{background-color:#ff0000;}
+    .youtube-btn:hover{background-color:#cc0000;}
+
+    .social{display:flex;justify-content:center;gap:1.2rem;margin-top:2rem;}
+    .social a{text-decoration:none;font-size:1.6rem;color:#555;transition:color 0.3s,transform 0.2s;}
+    .social a:hover{color:#111;transform:scale(1.2);}
+
+    .carousel{
+      margin-top:2rem;
+      overflow:hidden;
+      width:100%;
+      border-radius:15px;
+      position:relative;
+    }
+
+    .carousel-track{
+      display:flex;
+      gap:2rem;
+      animation:scroll 30s linear infinite;
+      justify-content:center;
+      align-items:center;
+    }
+
+    @keyframes scroll{
+      0%{transform:translateX(0);}
+      100%{transform:translateX(-50%);}
+    }
+
+    footer{margin-top:3rem;font-size:0.9rem;color:#777;}
+
+    /* === MODO OSCURO AUTOMÁTICO === */
+    @media (prefers-color-scheme: dark) {
+      body::before { background: rgba(0, 0, 0, 0.6); }
+      .container {
+        background: rgba(20, 20, 20, 0.9);
+        color: #eee;
+      }
+      .led-frame {
+        border-color: #00ff88;
+        box-shadow: 0 0 35px #00ff88, 0 0 60px #00ff88 inset;
+        animation: pulseGlowDark 3s ease-in-out infinite;
+      }
+      .text-type {
+        color: #00ff88;
+        text-shadow:
+          0 0 5px #00ff88,
+          0 0 10px #00ff88,
+          0 0 20px #00ff88;
+      }
+      .cursor {
+        background: #00ff88;
+      }
+      @keyframes pulseGlowDark {
+        0%,100%{box-shadow:0 0 25px #00ff88,0 0 55px #00ff88 inset;filter:brightness(0.9);}
+        50%{box-shadow:0 0 40px #33ffaa,0 0 75px #00ff88 inset;filter:brightness(1.2);}
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="logo.png" alt="Logo Tienda Chipi" style="width:100%;height:100%;object-fit:contain;">
+    </div>
+
+    <!-- Cartel LED con efecto Text Type + Fade + Pulso + Modo oscuro -->
+    <div class="led-typewriter-container">
+      <div class="led-frame">
+        <span id="text-type" class="text-type"></span><span class="cursor"></span>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <a class="btn whatsapp-btn" href="https://wa.me/5491173692091" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i> Contáctanos por WhatsApp
+      </a>
+      <a class="btn youtube-btn" href="https://youtube.com/shorts/43ZlRnIto8I?si=aa3PfPSpP6JgzMNq" target="_blank">
+        <i class="fa-brands fa-youtube"></i> 🎥 Ver video tutorial
+      </a>
+    </div>
+
+    <div class="social">
+      <a href="https://www.instagram.com/TiendaChipi" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://www.facebook.com/profile.php?id=100063579691214" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+      <a href="https://www.behance.net/TiendaChipi" target="_blank"><i class="fa-brands fa-behance"></i></a>
+    </div>
+
+    <div class="carousel">
+      <div class="carousel-track">
+        <div class="carousel-item"><img src="gorra.png" alt="Gorra"><span>Gorras</span></div>
+        <div class="carousel-item"><i class="fa-solid fa-mug-hot"></i><span>Tazas</span></div>
+        <div class="carousel-item"><i class="fa-solid fa-computer-mouse"></i><span>Mousepads</span></div>
+        <div class="carousel-item"><i class="fa-solid fa-note-sticky"></i><span>Vinilos</span></div>
+        <div class="carousel-item"><img src="almohadones.png" alt="Almohadón" style="width:54px;"><span>Almohadones</span></div>
+        <div class="carousel-item"><img src="delantal.png" alt="Delantal"><span>Delantales</span></div>
+        <div class="carousel-item"><i class="fa-solid fa-dog"></i><span>Chapitas</span></div>
+        <div class="carousel-item"><img src="jarro termico.png" alt="Jarro"><span>Jarros Térmicos</span></div>
+      </div>
+    </div>
+
+    <footer>© 2025 Tienda Chipi · Todos los derechos reservados</footer>
+  </div>
+
+  <script>
+    const texts=[
+      "Diseñamos y personalizamos productos para tu marca.",
+      "Vinilos, Gorras, Tazas, Almohadones, ¡y mucho más!",
+      "Convertí tus ideas en productos únicos.",
+      "Tienda Chipi · #personalizados"
+    ];
+
+    const el=document.getElementById("text-type");
+    let textIndex=0;
+    let charIndex=0;
+
+    function typeText(){
+      const current=texts[textIndex];
+      el.classList.add("visible");
+      el.textContent=current.slice(0,charIndex++);
+      if(charIndex<=current.length){
+        setTimeout(typeText,40);
+      }else{
+        setTimeout(()=>fadeOut(),2000);
+      }
+    }
+
+    function fadeOut(){
+      el.classList.remove("visible");
+      setTimeout(()=>{
+        charIndex=0;
+        textIndex=(textIndex+1)%texts.length;
+        el.textContent="";
+        typeText();
+      },800);
+    }
+
+    window.addEventListener("load",()=>typeText());
+  </script>
+</body>
+</html>
